@@ -96,6 +96,9 @@ state_machine.run()
 # or the controllable way...
 while not state_machine.is_done():
     state = state_machine.run_once()
-    # Do stuff before switching states
-    state_machine.set_state(state)
+    # Do stuff before switching states & define optional transition function
+    state_machine.set_state(state, foo)
+
+def foo(context):
+    print("Switching state!")
 ```
