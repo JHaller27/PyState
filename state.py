@@ -2,10 +2,10 @@
 
 
 from context import Context
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class State(ABCMeta):
+class State(ABC):
     """
     Interface for encapsulating the behavior associated with a particular
     state of the Context.
