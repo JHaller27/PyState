@@ -22,6 +22,7 @@ class Context:
     def run_once(self) -> State or None:
         """
         Run the current state, but does not change the current state.
+        Set the next state with set_state(State).
         :return: Next state to be transitioned into (possibly None).
         """
         return self._current_state.run(self)
@@ -31,7 +32,7 @@ class Context:
         Run the state machine from the current state to the final state.
         """
         while not self.is_done():
-            self._current_state = self.run_once()
+            self.set_state(self.run_once())
 
     def is_done(self) -> bool:
         """
@@ -39,6 +40,13 @@ class Context:
         :return: True if the current state is None, False otherwise.
         """
         return self._current_state is None
+
+    def set_state(self, state: State) -> None:
+        """
+        Set the current state.
+        :param state: New State.
+        """
+        self._current_state = state
 
     def reset(self) -> None:
         """
