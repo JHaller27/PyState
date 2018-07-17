@@ -41,11 +41,15 @@ class Context:
         """
         return self._current_state is None
 
-    def set_state(self, state: State) -> None:
+    def set_state(self, state: State, transition: Callable['Context'] = None) -> None:
         """
         Set the current state.
         :param state: New State.
+        :param transition: Callable to run BEFORE change to new state.
+                           Takes the current context as a parameter.
         """
+        if transition is not None:
+            transition(self)
         self._current_state = state
 
     def reset(self) -> None:
