@@ -11,13 +11,17 @@ class State(ABC):
     state of the Context.
     """
 
-    # noinspection PyUnusedLocal
-    @abstractmethod
-    def run(self, context: Context) -> 'State' or None:
+    def __init__(self, context: Context):
         """
-        Perform this State's behavior.
         :param context: Context object with data globally available to the
                         state machine.
+        """
+        self.context = context
+
+    @abstractmethod
+    def run(self) -> 'State' or None:
+        """
+        Perform this State's behavior.
         :return: The next State, or None if this is a final State.
         """
         return None
