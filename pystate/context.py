@@ -24,7 +24,7 @@ class Context:
         :return: Next state to be transitioned into (possibly None).
         """
         self._current_state.context = self
-        return self._current_state.run(self)
+        return self._current_state.run()
 
     def run(self, initial_state: 'State') -> None:
         """
