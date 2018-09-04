@@ -17,9 +17,7 @@ Uses classes to mimic state-based behavior described in the [Gang-of-Four State 
 ## Example
 
 ```python
-# These are the only two classes you should need from the state module
-# Note: You can also do `from context import ...` buy why would you?
-from state import State, Context
+from pystate.all import *
 
 MAX_TRANSITIONS = 10
 

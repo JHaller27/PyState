@@ -1,7 +1,6 @@
 # Author: James Haller
 
-
-from state import State
+from typing import Callable
 
 
 class Context:
@@ -12,14 +11,14 @@ class Context:
 
     __slots__ = ['_initial_state', '_current_state']
 
-    def __init__(self, initial_state: State):
+    def __init__(self, initial_state: 'State'):
         """
         Create a new Context object.
         :param initial_state: Start state of the state machine.
         """
         self._current_state = self._initial_state = initial_state
 
-    def run_once(self) -> State or None:
+    def run_once(self) -> 'State' or None:
         """
         Run the current state, but does not change the current state.
         Set the next state with set_state(State).
@@ -41,7 +40,7 @@ class Context:
         """
         return self._current_state is None
 
-    def set_state(self, state: State, transition: Callable['Context'] = None) -> None:
+    def set_state(self, state: 'State', transition: Callable[['Context'], None] = None) -> None:
         """
         Set the current state.
         :param state: New State.

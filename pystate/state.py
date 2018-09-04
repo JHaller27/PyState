@@ -1,7 +1,6 @@
 # Author: James Haller
 
 
-from context import Context
 from abc import ABC, abstractmethod
 
 
@@ -11,7 +10,7 @@ class State(ABC):
     state of the Context.
     """
 
-    def __init__(self, context: Context):
+    def __init__(self, context: 'Context'):
         """
         :param context: Context object with data globally available to the
                         state machine.
