@@ -17,6 +17,7 @@ Uses classes to mimic state-based behavior described in the [Gang-of-Four State 
 ## Example
 
 ```python
+# Import the State and Context classes for inheritance
 from pystate.all import *
 
 MAX_TRANSITIONS = 10
