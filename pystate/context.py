@@ -11,12 +11,11 @@ class Context:
 
     __slots__ = ['_initial_state', '_current_state']
 
-    def __init__(self, initial_state: 'State'):
+    def __init__(self):
         """
         Create a new Context object.
-        :param initial_state: Start state of the state machine.
         """
-        self._current_state = self._initial_state = initial_state
+        self._current_state = self._initial_state = None
 
     def run_once(self) -> 'State' or None:
         """
@@ -24,12 +23,14 @@ class Context:
         Set the next state with set_state(State).
         :return: Next state to be transitioned into (possibly None).
         """
+        self._current_state.context = self
         return self._current_state.run(self)
 
-    def run(self) -> None:
+    def run(self, initial_state: 'State') -> None:
         """
         Run the state machine from the current state to the final state.
         """
+        self.set_state(initial_state)
         while not self.is_done():
             self.set_state(self.run_once())
 

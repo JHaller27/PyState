@@ -12,7 +12,7 @@ Uses classes to mimic state-based behavior described in the [Gang-of-Four State 
    * This imports the abstract State class and the concrete Context class
 1. Implement the abstract `State` class and its `run(Context)` method
 1. (Optional) Extend `Context` and define data globally accessible to the state machine, and or additional behavior
-1. Call `Context.run()`
+1. Call `Context.run(MyStartState)`
 
 ## Example
 
@@ -30,12 +30,12 @@ class MyContext(Context):
     """
     __slots__ = ['_counter']
 
-    def __init__(self, initial_state):
+    def __init__(self):
         """
-        Call the base Context class's __init__() to set the initial state
-        and manually setup global data for this user-defined Context.
+        Call the base Context class's __init__() and manually setup global data
+        for this user-defined Context.
         """
-        super().__init__(initial_state)
+        super().__init__()
         self._counter = 0
 
     def set_state(self, state: State):
@@ -60,39 +60,40 @@ class MyStartState(State):
     overridden and returns the next State. This pattern continues for all
     custom states below.
     """
-    def run(self, context: MyContext):
-        if context.get_counter() % 2 == 0:
+    def run(self):
+        if self.context.get_counter() % 2 == 0:
             return MyStateA()
         else:
             return MyStateB()
 
 class MyStateA(State):
-    def run(self, context: MyContext):
-        if context.get_counter() >= MAX_TRANSITIONS:
+    def run(self):
+        if self.context.get_counter() >= MAX_TRANSITIONS:
             return MyFinalState()  # Could just return None
         else:
             return MyStateB()
 
 class MyStateB(State):
-    def run(self, context: MyContext):
-        if context.get_counter() >= MAX_TRANSITIONS:
+    def run(self):
+        if self.context.get_counter() >= MAX_TRANSITIONS:
             return MyFinalState()  # Could just return None
         else:
             return MyStateA()
 
 class MyFinalState(State):
-    def run(self, context: MyContext):
+    def run(self):
         # Do other clean-up things here if necessary
         return None
 
 # Create the state machine (and set the initial state)
-state_machine = MyContext(MyStartState())
+state_machine = MyContext()
 
 # There are two ways to run a state machine.
 # The easy way...
-state_machine.run()
+state_machine.run(MyStartState())
 
 # or the controllable way...
+state_machine.set_state(MyStartState())
 while not state_machine.is_done():
     state = state_machine.run_once()
     # Do stuff before switching states & define optional transition function

@@ -10,7 +10,7 @@ class State(ABC):
     state of the Context.
     """
 
-    def __init__(self, context: 'Context'):
+    def __init__(self, context: 'Context' = None):
         """
         :param context: Context object with data globally available to the
                         state machine.
