@@ -8,8 +8,8 @@ Uses classes to mimic state-based behavior described in the [Gang-of-Four State 
 ## Quick-Start
 
 1. Import classes
-   * `from state import State`
-   * `from state import Context` (optional)
+   * `from pystate.all import *`
+   * This imports the abstract State class and the concrete Context class
 1. Implement the abstract `State` class and its `run(Context)` method
 1. (Optional) Extend `Context` and define data globally accessible to the state machine, and or additional behavior
 1. Call `Context.run()`
