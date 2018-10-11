@@ -1,10 +1,7 @@
 # Author: James Haller
 
 
-from abc import ABC, abstractmethod
-
-
-class State(ABC):
+class State:
     """
     Interface for encapsulating the behavior associated with a particular
     state of the Context.
@@ -17,10 +14,10 @@ class State(ABC):
         """
         self.context = context
 
-    @abstractmethod
     def run(self) -> 'State' or None:
         """
         Perform this State's behavior.
         :return: The next State, or None if this is a final State.
         """
-        return None
+        raise NotImplementedError
+
